@@ -7,8 +7,6 @@ using CleanArchMvc.Infra.Data.Context;
 using CleanArchMvc.Infra.Data.Identity;
 using CleanArchMvc.Infra.Data.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,9 +19,9 @@ using System.Threading.Tasks;
 
 namespace CleanArchMvc.Infra.IoC
 {
-    public static class DependencyInjection
+    public static class DependencyInjectionAPI
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+        public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
             IConfiguration configuration)
         {
 
@@ -36,14 +34,9 @@ namespace CleanArchMvc.Infra.IoC
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IAuthenticate, AuthenticateService>();
-            services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
-            services.ConfigureApplicationCookie(options =>
-                     options.AccessDeniedPath = "/Account/Login");
-
-
-            services.AddScoped<ICategoryRepository,CategoryRepository>();
-            services.AddScoped<IProductRespository,ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRespository, ProductRepository>();
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();

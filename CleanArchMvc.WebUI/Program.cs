@@ -1,5 +1,7 @@
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using CleanArchMvc.Domain.Account;
+using CleanArchMvc.Infra.Data.Identity;
 using CleanArchMvc.Infra.IoC;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -18,11 +21,15 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+ISeedUserRoleInitial seedUserRoleInitial;
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
