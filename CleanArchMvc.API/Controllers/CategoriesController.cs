@@ -48,10 +48,17 @@ namespace CleanArchMvc.API.Controllers
 
         }
 
+<<<<<<< HEAD
         [HttpPut]
         public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDTO)
         {
             if(id != categoryDTO.Id) return BadRequest();
+=======
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromBody]CategoryDTO categoryDTO)
+        {
+            if (id != categoryDTO.Id) return BadRequest();
+>>>>>>> 61fd6bb9db1a379bbbfffc7aa4c61bcadfbbf639
 
             if (categoryDTO == null) return BadRequest();
 
@@ -65,6 +72,7 @@ namespace CleanArchMvc.API.Controllers
         {
             if (id == null) return BadRequest();
 
+<<<<<<< HEAD
             var category =  await _categoryService.GetById(id);
 
             if (category == null)
@@ -75,6 +83,15 @@ namespace CleanArchMvc.API.Controllers
             await _categoryService.Remove(id);
 
             return Ok();
+=======
+            var category = await _categoryService.GetById(id);
+
+            if (category == null) return NotFound("Category not found");
+
+            await _categoryService.Remove(id);
+
+            return Ok(category);
+>>>>>>> 61fd6bb9db1a379bbbfffc7aa4c61bcadfbbf639
         }
     }
 }

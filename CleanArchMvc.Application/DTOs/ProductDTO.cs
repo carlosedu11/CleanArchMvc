@@ -41,6 +41,10 @@ namespace CleanArchMvc.Application.DTOs
         [MaxLength(255)]
         [DisplayName("Product Image")]
         public string Image { get;  set; }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 61fd6bb9db1a379bbbfffc7aa4c61bcadfbbf639
         [JsonIgnore]
         public Category? Category{ get; set; }
         [DisplayName("Categories")]
