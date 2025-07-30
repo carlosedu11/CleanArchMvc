@@ -38,7 +38,7 @@ namespace CleanArchMvc.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDTO>> Get([FromBody]CategoryDTO categoryDTO)
+        public async Task<ActionResult<CategoryDTO>> Post([FromBody]CategoryDTO categoryDTO)
         {
             if (categoryDTO == null) return BadRequest("Invalid data");
             
@@ -46,6 +46,35 @@ namespace CleanArchMvc.API.Controllers
 
             return new CreatedAtRouteResult("GetCategory", new {id = categoryDTO.Id}, categoryDTO);
 
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Put(int id, [FromBody] CategoryDTO categoryDTO)
+        {
+            if(id != categoryDTO.Id) return BadRequest();
+
+            if (categoryDTO == null) return BadRequest();
+
+            await _categoryService.Update(categoryDTO);
+
+            return Ok(categoryDTO);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            if (id == null) return BadRequest();
+
+            var category =  await _categoryService.GetById(id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            await _categoryService.Remove(id);
+
+            return Ok();
         }
     }
 }
